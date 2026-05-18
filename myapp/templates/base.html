@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}PPG Members Portal{% endblock %}</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: sans-serif;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 16px 0;
+      border-bottom: 2px solid #2a6496;
+      margin-bottom: 32px;
+    }
+
+    nav .site-title {
+      font-weight: bold;
+      font-size: 1.1em;
+      color: #2a6496;
+      text-decoration: none;
+      margin-right: auto;
+    }
+
+    nav a {
+      color: #2a6496;
+      text-decoration: none;
+      font-size: 0.95em;
+    }
+
+    nav a:hover { text-decoration: underline; }
+
+    a { color: #2a6496; }
+
+    hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 24px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a class="site-title" href="{% url 'index' %}">PPG Members Portal</a>
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'about' %}">About</a>
+  </nav>
+
+  {% block content %}{% endblock %}
+</body>
+
+</html>
