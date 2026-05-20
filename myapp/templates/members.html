@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Members Area — PPG Members Portal{% endblock %}
+
+{% block content %}
+<h1>Members Area</h1>
+<p>Welcome, {{ user.get_username }}. You are signed in.</p>
+<p>This page is visible to authenticated users only.</p>
+{% endblock %}

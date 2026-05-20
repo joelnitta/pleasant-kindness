@@ -1,7 +1,9 @@
 import os
+
 import markdown2
 from django.conf import settings
-from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import render
 
 
@@ -25,3 +27,15 @@ def about(request):
 
 def health_check(request):
     return JsonResponse({"status": "ok"})
+
+
+@login_required
+def members(request):
+    return render(request, "members.html")
+
+
+@login_required
+def staff_dashboard(request):
+    if not request.user.is_staff:
+        return HttpResponseForbidden("Staff access required.")
+    return render(request, "staff_dashboard.html")

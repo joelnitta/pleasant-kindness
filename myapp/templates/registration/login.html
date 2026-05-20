@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Log In — PPG Members Portal{% endblock %}
+
+{% block content %}
+<h1>Log In</h1>
+
+{% if form.errors %}
+<p>Your username or password was incorrect. Please try again.</p>
+{% endif %}
+
+{% if next %}
+<p>You need to log in to access that page.</p>
+{% endif %}
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Log in</button>
+</form>
+
+<p>
+  <a href="{% url 'password_reset' %}">Forgot your password?</a>
+</p>
+{% endblock %}
