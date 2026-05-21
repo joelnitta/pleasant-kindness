@@ -92,3 +92,21 @@ For a full beginner guide with troubleshooting, see
 3. Railway will automatically deploy!
 
 The app will be available at your Railway domain.
+
+### Railway Login Fix
+
+If login POSTs fail with a CSRF origin error on Railway, set one of these
+environment variables in the Railway service settings:
+
+```bash
+CSRF_TRUSTED_ORIGINS=https://your-app.up.railway.app
+```
+
+Or, if you prefer, set:
+
+```bash
+RAILWAY_PUBLIC_DOMAIN=your-app.up.railway.app
+```
+
+The app reads either value and adds the deployed HTTPS origin to Django's CSRF
+trusted origins list.

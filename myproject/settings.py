@@ -6,6 +6,25 @@ SECRET_KEY = 'django-insecure-dev-key-change-in-production'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
+
+def _split_env_list(name):
+    raw_value = os.environ.get(name, '')
+    return [item.strip() for item in raw_value.split(',') if item.strip()]
+
+
+CSRF_TRUSTED_ORIGINS = _split_env_list('CSRF_TRUSTED_ORIGINS')
+
+railway_public_domain = os.environ.get('RAILWAY_PUBLIC_DOMAIN')
+if railway_public_domain:
+    railway_origin = railway_public_domain.strip()
+    if not railway_origin.startswith('http://') and not railway_origin.startswith(
+        'https://'
+    ):
+        railway_origin = f'https://{railway_origin}'
+    CSRF_TRUSTED_ORIGINS.append(railway_origin)
+
+CSRF_TRUSTED_ORIGINS = list(dict.fromkeys(CSRF_TRUSTED_ORIGINS))
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.contenttypes',
