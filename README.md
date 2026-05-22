@@ -5,6 +5,7 @@ A simple Django app with "Hello World" homepage.
 This project now includes a Django built-in login system with:
 
 - Login and logout
+- Signup via django-allauth
 - Password reset flow
 - Members-only page
 - Staff-only page
@@ -50,11 +51,18 @@ credentials.
 ## Login URLs
 
 - Login: `http://127.0.0.1:8000/accounts/login/`
+- Signup: `http://127.0.0.1:8000/accounts/signup/`
 - Logout: submit the "Log out" button in the top navigation
 - Password reset: `http://127.0.0.1:8000/accounts/password_reset/`
 - Members page (login required): `http://127.0.0.1:8000/members/`
 - Staff page (staff users only): `http://127.0.0.1:8000/staff/`
 - Admin: `http://127.0.0.1:8000/admin/`
+
+## Member-Only Signup Rule
+
+Signup is restricted to emails listed in `ppg_members.csv` at the repository
+root. Users can only create an account if their submitted email matches an
+email in that file (case-insensitive).
 
 ## Beginner Local Login Test
 
@@ -81,6 +89,11 @@ Use this checklist to test everything locally.
 	- Submit and check terminal output for the reset URL
 	- Open that URL and set a new password
 	- Log in with the new password
+
+6. Test signup restriction:
+	- Open `/accounts/signup/`
+	- Try signing up with an email that is not in `ppg_members.csv` (should fail)
+	- Try signing up with an email that is in `ppg_members.csv` (should succeed)
 
 For a full beginner guide with troubleshooting, see
 `docs/local-testing.md`.

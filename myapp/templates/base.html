@@ -84,12 +84,12 @@
     <a href="{% url 'admin:index' %}">Admin</a>
     {% endif %}
     <span>Signed in as {{ user.get_username }}</span>
-    <form method="post" action="{% url 'logout' %}">
+    <form method="post" action="{% url 'account_logout' %}">
       {% csrf_token %}
       <button type="submit">Log out</button>
     </form>
     {% else %}
-    <a href="{% url 'login' %}">Log in</a>
+    <a href="{% url 'account_login' %}">Log in</a>
     {% endif %}
   </nav>
 
