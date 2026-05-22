@@ -60,9 +60,15 @@ credentials.
 
 ## Member-Only Signup Rule
 
-Signup is restricted to emails listed in `ppg_members.csv` at the repository
-root. Users can only create an account if their submitted email matches an
-email in that file (case-insensitive).
+Signup is restricted to approved member emails (case-insensitive).
+
+Email lookup order:
+
+1. `MEMBER_EMAIL_WHITELIST` environment variable
+2. Local `ppg_members.csv` file (development fallback)
+
+This allows production to keep member data out of git while preserving a simple
+local workflow.
 
 ## Beginner Local Login Test
 
@@ -123,3 +129,21 @@ RAILWAY_PUBLIC_DOMAIN=your-app.up.railway.app
 
 The app reads either value and adds the deployed HTTPS origin to Django's CSRF
 trusted origins list.
+
+### Railway Member Data (No Git Commit)
+
+Set this Railway variable with approved emails:
+
+```bash
+MEMBER_EMAIL_WHITELIST=email1@example.org,email2@example.org
+```
+
+You can also separate emails with semicolons or new lines.
+
+Optional helper to generate the value from a local `ppg_members.csv`:
+
+```bash
+python -c "import csv;print(','.join(sorted({r['email'].strip().lower() for r in csv.DictReader(open('ppg_members.csv', encoding='utf-8-sig')) if r.get('email') and r['email'].strip()})))"
+```
+
+After setting the variable, redeploy Railway.
